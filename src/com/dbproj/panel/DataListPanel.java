@@ -1,4 +1,4 @@
-package com.dbproj.frame;
+package com.dbproj.panel;
 
 import java.awt.BorderLayout;
 import java.sql.ResultSet;
@@ -6,31 +6,37 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
-import com.dbproj.panel.MyPanel;
 import com.dbproj.util.DBToolbox;
 
+/**
+ * pass in an sql and you can get a panel with list populated from that sql
+ */
 public class DataListPanel extends MyPanel {
 	
 	int columnCount;
 	JTable table;
-	ArrayList<Object[]> dataArrayList = new ArrayList<>();
-	StaffTableModel tableModel;
-	String[] columnName;
+	Vector<Vector<Object>> dataArrayList = new Vector<>();
+	DefaultTableModel tableModel;
+	Vector<String> columnName;
 	
-	String tableName;
+	String sql;
 	
-	public DataListPanel(String tableName){
+	public DataListPanel(String sql){
 		super();
-		this.tableName = tableName;
+		this.sql = sql;
 		initUI();
 	}
 	
-	private void initUI() {
+	
+	
+	void initUI() {
 		setLayout(new BorderLayout());
 		table = new JTable();
 		
@@ -40,25 +46,26 @@ public class DataListPanel extends MyPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		getDataFromDB();
 		
-		tableModel = new StaffTableModel();
+		tableModel = new DefaultTableModel(dataArrayList, columnName);
 		table.setModel(tableModel);
 		
 	}
 	
-	private void getDataFromDB(){
+	public void getDataFromDB(){
+		dataArrayList = new Vector<>();
 		try {
 			Statement st = DBToolbox.connection.createStatement();
-			ResultSet rs = st.executeQuery("select * from " + tableName);
+			ResultSet rs = st.executeQuery(sql);
 			
 			ResultSetMetaData metadata = rs.getMetaData();
 			columnCount = metadata.getColumnCount();
-			columnName = new String[columnCount];
+			columnName = new Vector<>(columnCount);
 			
 			for(int i = 1; i <= columnCount; i++){
-				columnName[i - 1] = metadata.getColumnName(i);
+				columnName.add(metadata.getColumnName(i));
 			}
 			
-			Object[] columns;
+			Vector<Object> columns;
 			while(rs.next()){
 				/*int id = rs.getObject(1, Integer.class);
 				int ssn = rs.getObject(2, Integer.class);
@@ -80,9 +87,9 @@ public class DataListPanel extends MyPanel {
 				e.setAddress(address);
 				
 				dataArrayList.add(e);*/
-				columns = new Object[columnCount];
+				columns = new Vector<>(columnCount);
 				for(int i = 1; i <= columnCount; i++){
-					columns[i - 1] = rs.getObject(i);
+					columns.add(rs.getObject(i));
 				}
 				
 				dataArrayList.add(columns);
@@ -92,31 +99,6 @@ public class DataListPanel extends MyPanel {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
-	private class StaffTableModel extends AbstractTableModel{
-
-		@Override
-		public int getRowCount() {
-			return dataArrayList.size();
-		}
-
-		@Override
-		public int getColumnCount() {
-			return columnCount;
-		}
-
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			
-			return dataArrayList.get(rowIndex)[columnIndex];
-		}
-		
-		@Override
-		public String getColumnName(int column) {
-			return columnName[column];
-		}
-		
-	}
 }

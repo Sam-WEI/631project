@@ -1,6 +1,5 @@
-package com.dbproj.frame;
+package com.dbproj.module;
 
-import com.dbproj.module.Employee;
 
 public class Nurse extends Employee {
 	int grade;
