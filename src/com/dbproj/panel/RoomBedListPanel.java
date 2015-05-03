@@ -39,15 +39,17 @@ public class RoomBedListPanel extends DataListPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				Object pID = table.getValueAt(row, 4);
-				if(pID != null){
-					int patientID = (int) pID ;
-					
-					removePatientFromBed(patientID);
-					
-					getDataFromDBAndShowInList();
+				if (row != -1) {
+					Object pID = table.getValueAt(row, 4);
+					if (pID != null) {
+						int patientID = (int) pID;
+
+						removePatientFromBed(patientID);
+
+						getDataFromDBAndShowInList();
+					}
 				}
-				
+
 			}
 			
 		});

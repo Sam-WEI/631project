@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.dbproj.panel.DataListPanel;
-import com.dbproj.panel.PatientToBedList;
+import com.dbproj.panel.PatientToBedListPanel;
 import com.dbproj.panel.RoomBedListPanel;
 
 
@@ -29,7 +29,7 @@ public class ManageInPatientFrame extends MyFrame {
 		Panel = new JPanel(new BorderLayout());
 		
 		tabbedPane.add("Room/Bed", new RoomBedListPanel());
-		tabbedPane.add("Assign Patient To Bed", new PatientToBedList());
+		tabbedPane.add("Assign Patient To Bed", new PatientToBedListPanel());
 		
 		
 	}

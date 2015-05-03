@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.dbproj.util.DBToolbox;
 
-public class PatientToBedList extends DataListPanel {
+public class PatientToBedListPanel extends DataListPanel {
 
 	
 	static String sql = "SELECT p.id, p.name, p.date_of_birth, p.gender, a.room_no, a. bed_no, a.date_in, a.date_out FROM patient p"
@@ -18,7 +21,7 @@ public class PatientToBedList extends DataListPanel {
 			+ " ON p.id = a.patient_id"
 			+ " ORDER BY p.id";
 	
-	public PatientToBedList() {
+	public PatientToBedListPanel() {
 		super(sql);
 	}
 	
@@ -33,8 +36,8 @@ public class PatientToBedList extends DataListPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				Object pID = table.getValueAt(row, 0);
-				if(pID != null){
+				if(row != -1){
+					Object pID = table.getValueAt(row, 0);
 					int patientID = (int) pID ;
 					removePatientFromBed(patientID);
 					getDataFromDBAndShowInList();
@@ -43,6 +46,29 @@ public class PatientToBedList extends DataListPanel {
 		});
 		addToControlPanel(btnRemoveBed);
 		
+		JButton btnAssignBed = new JButton("Assign Bed");
+		btnAssignBed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				if(row != -1){
+					Object pID = table.getValueAt(row, 0);
+					int patientID = (int) pID ;
+					String patientName = (String) table.getValueAt(row, 1);
+					removePatientFromBed(patientID);
+					getDataFromDBAndShowInList();
+					
+					JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(PatientToBedListPanel.this);
+					JDialog dialog = new JDialog(topFrame, "Choose A Bed For Patient \"" + patientName + "\"", true);
+					dialog.setSize(600, 400);
+					dialog.setResizable(false);
+					dialog.setLocationRelativeTo(topFrame);
+					dialog.setContentPane(new AssignBedPanel(patientID));
+					dialog.setVisible(true);
+				}
+			}
+		});
+		addToControlPanel(btnAssignBed);
 		
 	}
 	

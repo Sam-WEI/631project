@@ -9,8 +9,10 @@ import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import com.dbproj.util.DBToolbox;
 
@@ -29,22 +31,21 @@ public class StaffListPanel extends DataListPanel {
 	protected void initUI(){
 		super.initUI();
 		
-		controlPanel = new JPanel(new FlowLayout());
+		generateControlPanel(true);
+		
 		btnAdd = new JButton("Add");
 		btnRemove = new JButton("Remove");
-		controlPanel.add(btnAdd);
-		controlPanel.add(btnRemove);
-		
-		add(controlPanel, BorderLayout.SOUTH);
+		addToControlPanel(btnAdd);
+		addToControlPanel(btnRemove);
 		
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JDialog dialog = new JDialog();
-				dialog.setTitle("Add New Staff");
-				dialog.setModal(true);
-				dialog.setLocationRelativeTo(null);
+				JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(StaffListPanel.this);
+				JDialog dialog = new JDialog(topFrame, "Add New Staff", true);
 				dialog.setSize(400, 600);
+				dialog.setLocationRelativeTo(topFrame);
+				
 				dialog.add(new JScrollPane(new AddStaffPanel(null)));
 				dialog.setVisible(true);
 			}

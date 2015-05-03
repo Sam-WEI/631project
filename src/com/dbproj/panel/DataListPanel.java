@@ -87,6 +87,10 @@ public class DataListPanel extends MyPanel {
 	}
 	
 	public void getDataFromDBAndShowInList(){
+		getDataFromDBAndShowInList(sql);
+	}
+	
+	public void getDataFromDBAndShowInList(String sql){
 		dataArrayList = new Vector<>();
 		try {
 			Statement st = DBToolbox.connection.createStatement();

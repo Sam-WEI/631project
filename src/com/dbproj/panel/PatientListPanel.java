@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 public class PatientListPanel extends DataListPanel {
 
@@ -24,11 +26,12 @@ public class PatientListPanel extends DataListPanel {
 	@Override
 	void initUI() {
 		super.initUI();
-		controlPanel = new JPanel(new FlowLayout());
-		btnView = new JButton("View");
-		controlPanel.add(btnView);
 		
-		add(controlPanel, BorderLayout.SOUTH);
+		generateControlPanel(true);
+		
+		btnView = new JButton("View");
+		addToControlPanel(btnView);
+		
 		
 		btnView.addActionListener(new ActionListener() {
 			
@@ -38,11 +41,11 @@ public class PatientListPanel extends DataListPanel {
 				if(row != -1){
 					int idx = (int) table.getModel().getValueAt(row, 0);
 					
-					JDialog dialog = new JDialog();
-					dialog.setTitle("View Patient");
-					dialog.setModal(true);
-					dialog.setLocationRelativeTo(null);
+					JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(PatientListPanel.this);
+					
+					JDialog dialog = new JDialog(topFrame, "View Patient", true);
 					dialog.setSize(400, 600);
+					dialog.setLocationRelativeTo(topFrame);
 					PatientViewerPanel viewer = new PatientViewerPanel(false);
 					viewer.showPatientWithID(idx);
 					dialog.add(new JScrollPane(viewer));

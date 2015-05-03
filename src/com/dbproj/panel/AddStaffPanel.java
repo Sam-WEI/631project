@@ -15,12 +15,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.dbproj.module.StaffType;
 import com.dbproj.util.DBToolbox;
+import com.dbproj.util.Toolbox;
 
 public class AddStaffPanel extends MyPanel {
 	
@@ -236,6 +238,9 @@ public class AddStaffPanel extends MyPanel {
 				st2.setInt(2, Integer.valueOf(tfContractDur.getText().trim()));
 			}
 			st2.execute();
+			
+			JOptionPane.showMessageDialog(AddStaffPanel.this, "Staff is added.", "Done", JOptionPane.PLAIN_MESSAGE);
+			Toolbox.closeDialog(AddStaffPanel.this);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

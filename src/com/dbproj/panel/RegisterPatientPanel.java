@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import com.dbproj.util.DBToolbox;
+import com.dbproj.util.Toolbox;
 
 public class RegisterPatientPanel extends PatientViewerPanel {
 
@@ -66,9 +67,8 @@ public class RegisterPatientPanel extends PatientViewerPanel {
 			st.setInt(1, id);
 			st.setInt(2, Integer.valueOf(tfSSN.getText().trim()));
 			st.setString(3, tfName.getText().trim());
-			Calendar selectedValue = (Calendar) datePicker.getModel().getValue();
 			
-			st.setDate(4, new Date(selectedValue.getTimeInMillis()));
+			st.setDate(4, Toolbox.getDateFromDatePicker(datePicker));
 			st.setString(5, type);
 			st.setString(6, tfAddr.getText().trim());
 			st.setString(7, gender);
