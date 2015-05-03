@@ -19,13 +19,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import com.dbproj.panel.CreatePatientPanel;
+import com.dbproj.panel.RegisterPatientPanel;
 import com.dbproj.panel.PatientListPanel;
 import com.dbproj.panel.PatientViewerPanel;
 import com.dbproj.util.DBToolbox;
 
 
-public class PatientMainFrame extends MyFrame {
+public class ManagePatientFrame extends MyFrame {
 	
 	PatientViewerPanel viewPatientPanel;
 	
@@ -84,7 +84,7 @@ public class PatientMainFrame extends MyFrame {
 		final JPanel panelReg = new JPanel(new BorderLayout());
 		panelReg.setBorder(border);
 		
-		panelReg.add(new JScrollPane(new CreatePatientPanel()), BorderLayout.CENTER);
+		panelReg.add(new JScrollPane(new RegisterPatientPanel()), BorderLayout.CENTER);
 		
 		
 		

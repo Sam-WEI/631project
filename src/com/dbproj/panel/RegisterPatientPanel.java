@@ -18,11 +18,11 @@ import org.jdatepicker.impl.JDatePickerImpl;
 
 import com.dbproj.util.DBToolbox;
 
-public class CreatePatientPanel extends PatientViewerPanel {
+public class RegisterPatientPanel extends PatientViewerPanel {
 
 	JButton btnSave;
 	
-	public CreatePatientPanel() {
+	public RegisterPatientPanel() {
 		super(true);
 	}
 

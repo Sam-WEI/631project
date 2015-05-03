@@ -52,7 +52,7 @@ public class MainFrame extends MyFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new PatientMainFrame().setVisible(true);
+				new ManagePatientFrame().setVisible(true);
 			}
 		});
 		btn = new JButton("Manage In-Patient");
@@ -61,7 +61,7 @@ public class MainFrame extends MyFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new PatientListFrame().setVisible(true);
+				new ManageInPatientFrame().setVisible(true);
 			}
 		});
 		btn = new JButton("Manage Staff");

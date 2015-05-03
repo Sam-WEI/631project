@@ -43,7 +43,7 @@ public class ManageStaffFrame extends MyFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				 int idx =  tabbedPane.getSelectedIndex();
-				 panelAList.get(idx).getDataFromDB();
+				 panelAList.get(idx).getDataFromDBAndShowInList();
 				 
 			}
 	    });

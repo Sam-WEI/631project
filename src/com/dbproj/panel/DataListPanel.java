@@ -1,6 +1,9 @@
 package com.dbproj.panel;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -8,6 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -29,6 +35,8 @@ public class DataListPanel extends MyPanel {
 	
 	String sql;
 	
+	protected JPanel controlPanel;
+	
 	public DataListPanel(String sql){
 		super();
 		this.sql = sql;
@@ -45,20 +53,40 @@ public class DataListPanel extends MyPanel {
 		table.setFillsViewportHeight(true);
 		
 		add(scrollPane, BorderLayout.CENTER);
-		getDataFromDB();
 		
-		tableModel = new DefaultTableModel(dataArrayList, columnName);
-		
-		table.setModel(tableModel);
-		
-		table.setRowSelectionAllowed(true);
-		table.setColumnSelectionAllowed(false);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getDataFromDBAndShowInList();
 		
 		
 	}
 	
-	public void getDataFromDB(){
+	protected void generateControlPanel(boolean withRefreshButton) {
+		controlPanel = new JPanel(new FlowLayout());
+		add(controlPanel, BorderLayout.SOUTH);
+		
+		if(withRefreshButton){
+			controlPanel.add(generateRefreshButton());
+		}
+	}
+	
+	protected void addToControlPanel(JComponent comp){
+		if(controlPanel == null){
+			generateControlPanel(false);
+		}
+		controlPanel.add(comp);
+	}
+	
+	protected JButton generateRefreshButton(){
+		JButton bRefresh = new JButton("Refresh");
+		bRefresh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getDataFromDBAndShowInList();
+			}
+		});
+		return bRefresh;
+	}
+	
+	public void getDataFromDBAndShowInList(){
 		dataArrayList = new Vector<>();
 		try {
 			Statement st = DBToolbox.connection.createStatement();
@@ -106,6 +134,13 @@ public class DataListPanel extends MyPanel {
 			e.printStackTrace();
 		}
 		
+		tableModel = new DefaultTableModel(dataArrayList, columnName);
+		
+		table.setModel(tableModel);
+		
+		table.setRowSelectionAllowed(true);
+		table.setColumnSelectionAllowed(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 	
 }
