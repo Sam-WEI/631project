@@ -9,7 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.dbproj.panel.DataListPanel;
-import com.dbproj.panel.ManageStaffPanel;
+import com.dbproj.panel.StaffListPanel;
 
 public class ManageStaffFrame extends MyFrame {
 	
@@ -28,11 +28,11 @@ public class ManageStaffFrame extends MyFrame {
 		DataListPanel empListPanel = new DataListPanel("select * from employee");
 		allStaffPanel.add(empListPanel, BorderLayout.CENTER);
 		
-		final ArrayList<ManageStaffPanel> panelAList = new ArrayList<>();
-		panelAList.add(new ManageStaffPanel("select * from employee"));
-		panelAList.add(new ManageStaffPanel("select * from physician P, employee E where P.emp_id = E.id"));
-		panelAList.add(new ManageStaffPanel("select * from nurse P, employee E where P.emp_id = E.id"));
-		panelAList.add(new ManageStaffPanel("select * from surgeon P, employee E where P.emp_id = E.id"));
+		final ArrayList<StaffListPanel> panelAList = new ArrayList<>();
+		panelAList.add(new StaffListPanel("select * from employee"));
+		panelAList.add(new StaffListPanel("select * from physician P, employee E where P.emp_id = E.id"));
+		panelAList.add(new StaffListPanel("select * from nurse P, employee E where P.emp_id = E.id"));
+		panelAList.add(new StaffListPanel("select * from surgeon P, employee E where P.emp_id = E.id"));
 		
 		tabbedPane.add("Employee List", panelAList.get(0));
 		tabbedPane.add("Physician List", panelAList.get(1));

@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,7 +48,13 @@ public class DataListPanel extends MyPanel {
 		getDataFromDB();
 		
 		tableModel = new DefaultTableModel(dataArrayList, columnName);
+		
 		table.setModel(tableModel);
+		
+		table.setRowSelectionAllowed(true);
+		table.setColumnSelectionAllowed(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		
 	}
 	

@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -19,6 +20,8 @@ import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import org.jdatepicker.util.JDatePickerUtil;
+
+import com.dbproj.util.DBToolbox;
 
 
 public class PatientViewerPanel extends MyPanel {
@@ -49,7 +52,7 @@ public class PatientViewerPanel extends MyPanel {
 	
 	protected void initUI() {
 		setBorder(BorderFactory.createEtchedBorder());
-		setLayout(new GridLayout(20, 1));
+		setLayout(new GridLayout(18, 1));
 		
 		tfNo = new JTextField(20);
 		tfName = new JTextField(20);
@@ -150,5 +153,21 @@ public class PatientViewerPanel extends MyPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void showPatientWithID(int id){
+		setResultSet(searchPatientWithId(id));
+	}
+	
+	private ResultSet searchPatientWithId(int id){
+		ResultSet rs = null;
+		try {
+			Statement statement = DBToolbox.connection.createStatement();
+			rs = statement.executeQuery("select * from patient where id = '" + id + "'");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 }

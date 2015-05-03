@@ -19,6 +19,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.dbproj.panel.CreatePatientPanel;
+import com.dbproj.panel.PatientListPanel;
 import com.dbproj.panel.PatientViewerPanel;
 import com.dbproj.util.DBToolbox;
 
@@ -38,10 +40,10 @@ public class PatientMainFrame extends MyFrame {
 		panelLeft.setBorder(border);
 		add(panelLeft, BorderLayout.WEST);
 		
-		JButton btnView = new JButton("Patient Viewer");
+		JButton btnView = new JButton("Search Patient");
 		panelLeft.add(btnView);
 		
-		JButton btnReg = new JButton("Register");
+		JButton btnReg = new JButton("Register New Patient");
 		panelLeft.add(btnReg);
 		
 		final JTabbedPane tabbedPane = new JTabbedPane();
@@ -65,7 +67,7 @@ public class PatientMainFrame extends MyFrame {
 			public void actionPerformed(ActionEvent e) {
 				String tmp = tfPNo.getText().trim();
 				int id = Integer.parseInt(tmp);
-				viewPatientPanel.setResultSet(searchPatientWithId(id));
+				viewPatientPanel.showPatientWithID(id);
 			}
 		});
 		panelPNO.add(btnEnter);
@@ -82,14 +84,15 @@ public class PatientMainFrame extends MyFrame {
 		final JPanel panelReg = new JPanel(new BorderLayout());
 		panelReg.setBorder(border);
 		
-		
-		panelReg.add(new JScrollPane(new PatientViewerPanel(true)), BorderLayout.CENTER);
-		
+		panelReg.add(new JScrollPane(new CreatePatientPanel()), BorderLayout.CENTER);
 		
 		
 		
-		tabbedPane.add("Patient Viewer", panelViewerTab);
-		tabbedPane.add("Register", panelReg);
+		tabbedPane.add("Patient List", new PatientListPanel("select * from patient"));
+		tabbedPane.add("Search Patient", panelViewerTab);
+		tabbedPane.add("Register New Patient", panelReg);
+		
+		
 		
 		btnView.addActionListener(new ActionListener() {
 			@Override
@@ -120,18 +123,6 @@ public class PatientMainFrame extends MyFrame {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	private ResultSet searchPatientWithId(int id){
-		ResultSet rs = null;
-		try {
-			Statement statement = DBToolbox.connection.createStatement();
-			rs = statement.executeQuery("select * from patient where number = '" + id + "'");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rs;
 	}
 	
 	

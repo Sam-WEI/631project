@@ -14,15 +14,14 @@ import javax.swing.JScrollPane;
 
 import com.dbproj.util.DBToolbox;
 
-public class ManageStaffPanel extends DataListPanel {
+public class StaffListPanel extends DataListPanel {
 
-	DataListPanel dataListPanel;
 	JPanel controlPanel;
 	JButton btnAdd;
 	JButton btnRemove;
 	
 	
-	public ManageStaffPanel(String sql) {
+	public StaffListPanel(String sql) {
 		super(sql);
 	}
 
