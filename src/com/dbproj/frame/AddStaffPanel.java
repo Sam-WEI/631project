@@ -40,7 +40,6 @@ public class AddStaffPanel extends MyPanel {
 	
 	
 	private void init() {
-		super.initUI();
 		setLayout(new GridLayout(20, 1));
 		
 		tfNo = new JTextField(20);

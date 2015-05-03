@@ -16,7 +16,7 @@ public class ManageStaffFrame extends MyFrame {
 		tabbedPane = new JTabbedPane();
 		add(tabbedPane);
 		
-		tabbedPane.add("AAA", new AddStaffPanel(StaffType.Nurse));
+		tabbedPane.add("Employee List", new DataListPanel("employee"));
 	}
 	
 	
