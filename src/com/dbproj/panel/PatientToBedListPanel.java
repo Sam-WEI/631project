@@ -16,10 +16,10 @@ import com.dbproj.util.DBToolbox;
 public class PatientToBedListPanel extends DataListPanel {
 
 	
-	static String sql = "SELECT p.id, p.name, p.date_of_birth, p.gender, a.room_no, a. bed_no, a.date_in, a.date_out FROM patient p"
-			+ " LEFT JOIN admitted_to_bed a"
-			+ " ON p.id = a.patient_id"
-			+ " ORDER BY p.id";
+	static String sql = "SELECT p.id, p.name, p.date_of_birth, p.gender, d.type, d.comment FROM patient p, diagnosis d, consultation c"
+			+ " WHERE d.type = 'H' AND d.consultation_id = c.id"
+			+ " AND c.patient_id = p.id"
+			+ " AND p.id NOT IN (SELECT patient_id FROM admitted_to_bed)";
 	
 	public PatientToBedListPanel() {
 		super(sql);
@@ -31,20 +31,6 @@ public class PatientToBedListPanel extends DataListPanel {
 		
 		generateControlPanel(true);
 		
-		JButton btnRemoveBed = new JButton("Remove Patient From Bed");
-		btnRemoveBed.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int row = table.getSelectedRow();
-				if(row != -1){
-					Object pID = table.getValueAt(row, 0);
-					int patientID = (int) pID ;
-					removePatientFromBed(patientID);
-					getDataFromDBAndShowInList();
-				}
-			}
-		});
-		addToControlPanel(btnRemoveBed);
 		
 		JButton btnAssignBed = new JButton("Assign Bed");
 		btnAssignBed.addActionListener(new ActionListener() {

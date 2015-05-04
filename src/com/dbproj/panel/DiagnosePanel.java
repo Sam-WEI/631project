@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -39,6 +40,9 @@ public class DiagnosePanel extends DataListPanel {
 		
 		generateControlPanel(false);
 		
+		final JCheckBox cbNeedOp = new JCheckBox("Hospitalize", false);
+		addToControlPanel(cbNeedOp);
+		
 		JButton bSubmit = new JButton("Submit");
 		addToControlPanel(bSubmit);
 		bSubmit.addActionListener(new ActionListener() {
@@ -47,16 +51,17 @@ public class DiagnosePanel extends DataListPanel {
 				int row = table.getSelectedRow();
 				if(row != -1){
 					int illCode = (int) tableModel.getValueAt(row, 0);
-					commitDiagnosis(cons_id, illCode, ta.getText().trim());
+					String needOp = (cbNeedOp.isSelected() ? "H" : "O");
+					commitDiagnosis(cons_id, illCode, needOp, ta.getText().trim());
 				}
 			}
 		});
 	}
 	
-	void commitDiagnosis(int consID, int illCode, String comment){
+	void commitDiagnosis(int consID, int illCode, String needOp, String comment){
 		try {
 			Statement st = DBToolbox.connection.createStatement();
-			st.execute(String.format("insert into diagnosis values (%d, %d, '%s')", consID, illCode, comment));
+			st.execute(String.format("insert into diagnosis values (%d, %d, '%s', '%s')", consID, illCode, needOp, comment));
 			
 			JOptionPane.showMessageDialog(this, "Diagnosis is submitted!", "done", JOptionPane.PLAIN_MESSAGE);
 			

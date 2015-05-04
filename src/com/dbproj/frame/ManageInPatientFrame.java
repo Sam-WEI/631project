@@ -6,9 +6,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.dbproj.panel.AssignSurgeryPanel;
 import com.dbproj.panel.DataListPanel;
+import com.dbproj.panel.NurseAssignmentListPanel;
 import com.dbproj.panel.PatientToBedListPanel;
-import com.dbproj.panel.RoomBedListPanel;
+import com.dbproj.panel.InPatientAssignmentListPanel;
+import com.dbproj.panel.SurgeryListPanel;
 
 
 public class ManageInPatientFrame extends MyFrame {
@@ -28,9 +31,11 @@ public class ManageInPatientFrame extends MyFrame {
 		
 		Panel = new JPanel(new BorderLayout());
 		
-		tabbedPane.add("Room/Bed", new RoomBedListPanel());
+		tabbedPane.add("Bed Assignment", new InPatientAssignmentListPanel());
 		tabbedPane.add("Assign Patient To Bed", new PatientToBedListPanel());
-		
+		tabbedPane.add("Nurse Assignment", new NurseAssignmentListPanel());
+		tabbedPane.add("Book Surgery", new AssignSurgeryPanel());
+		tabbedPane.add("Surgery List", new SurgeryListPanel());
 		
 	}
 	
