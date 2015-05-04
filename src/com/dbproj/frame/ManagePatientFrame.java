@@ -41,8 +41,6 @@ public class ManagePatientFrame extends MyFrame {
 		panelLeft.setBorder(border);
 		add(panelLeft, BorderLayout.WEST);
 		
-		JButton btnView = new JButton("Search Patient");
-		panelLeft.add(btnView);
 		
 		JButton btnReg = new JButton("Register New Patient");
 		panelLeft.add(btnReg);
@@ -95,17 +93,11 @@ public class ManagePatientFrame extends MyFrame {
 		tabbedPane.add("Consultation List", new ConsultationListPanel());
 		
 		
-		btnView.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setSelectedIndex(0);
-			}
-		});
 		
 		btnReg.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setSelectedIndex(1);
+				tabbedPane.setSelectedIndex(2);
 			}
 		});
 	}

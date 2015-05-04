@@ -1,4 +1,9 @@
 package com.dbproj.frame;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -37,15 +42,30 @@ public class MainFrame extends MyFrame {
 		});
 		
 		
-		setLayout(new GridLayout(2, 1));
+		setLayout(new BorderLayout());
 
-		ImageIcon image = new ImageIcon("image\\main_bg.jpg");
+		JPanel pLogo = new JPanel(null);
+		add(pLogo, BorderLayout.CENTER);
 		
-		add(new JLabel(image));
+		
+		JLabel name = new JLabel("NewarkMedicalAssociates");
+		name.setFont(new Font("Broadway", Font.BOLD, 55));
+		name.setBounds(100, 100, 1024, 200);
+		name.setBackground(Color.RED);
+		pLogo.add(name);
+		
+		
+		ImageIcon image = new ImageIcon("image\\main_bg.jpg");
+		JLabel imageLabel = new JLabel(image);
+		imageLabel.setBounds(0, 0, 1024, 700);
+		pLogo.add(imageLabel);
+		
+		
 		
 		JPanel panelLogin = new JPanel();
-		add(panelLogin);
+		add(panelLogin, BorderLayout.SOUTH);
 		panelLogin.setLayout(new GridLayout(1, 3));
+		panelLogin.setPreferredSize(new Dimension(0, 70));
 		JButton btn = new JButton("Manage Patient");
 		panelLogin.add(btn);
 		btn.addActionListener(new ActionListener() {
@@ -72,7 +92,9 @@ public class MainFrame extends MyFrame {
 				new ManageStaffFrame().setVisible(true);
 			}
 		});
+		
 	} 
+	
 	
 	@Override
 	protected int[] getWH() {

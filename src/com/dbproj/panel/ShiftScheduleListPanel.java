@@ -18,7 +18,7 @@ import com.dbproj.util.DBToolbox;
 
 public class ShiftScheduleListPanel extends DataListPanel {
 
-	static String sql = "SELECT s.date, s.begin_time, s.end_time, e.id, e.name"
+	static String sql = "SELECT s.date, s.begin_time, s.end_time, e.type, e.id, e.name"
 			+ " FROM shift s LEFT JOIN shift_schedule ss"
 			+ " ON ss.date = s.date AND ss.begin_time = s.begin_time AND ss.end_time = s.end_time"
 			+ " LEFT JOIN employee e"
@@ -115,7 +115,7 @@ public class ShiftScheduleListPanel extends DataListPanel {
 				date = (Date) tableModel.getValueAt(row, 0);
 				begin = (Time) tableModel.getValueAt(row, 1);
 				end = (Time) tableModel.getValueAt(row, 2);
-				emp_id = (int) tableModel.getValueAt(row, 3);
+				emp_id = (int) tableModel.getValueAt(row, 4);
 				ps.setDate(1, date);
 				ps.setTime(2, begin);
 				ps.setTime(3, end);

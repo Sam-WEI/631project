@@ -169,7 +169,7 @@ public class SurgeryListPanel extends DataListPanel {
 			ResultSet rs = st.executeQuery("select e.name, e.id from surgeon s, employee e where s.emp_id = e.id");
 			mapSurgeon = new LinkedHashMap<>();
 			while(rs.next()){
-				mapSurgeon.put(rs.getString(1)+"["+rs.getInt(2)+"]", rs.getInt(2));
+				mapSurgeon.put(rs.getString(1)+" ["+rs.getInt(2)+"]", rs.getInt(2));
 			}
 			String[] sss = mapSurgeon.keySet().toArray(new String[0]);
 			DefaultComboBoxModel<String> m = new DefaultComboBoxModel<>(sss);
@@ -206,7 +206,7 @@ public class SurgeryListPanel extends DataListPanel {
 			
 			mapPatient = new LinkedHashMap<>();
 			while(rs.next()){
-				mapPatient.put(rs.getString(1)+"["+rs.getInt(2)+"]", rs.getInt(2));
+				mapPatient.put(rs.getString(1)+" ["+rs.getInt(2)+"]", rs.getInt(2));
 			}
 			String[] sss = mapPatient.keySet().toArray(new String[0]);
 			DefaultComboBoxModel<String> m = new DefaultComboBoxModel<>(sss);
