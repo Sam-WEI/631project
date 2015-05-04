@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import com.dbproj.util.DBToolbox;
 
 /**
- * pass in an sql and you can get a panel with list populated from that sql
+ * pass in an sql_without_specific_date and you can get a panel with list populated from that sql_without_specific_date
  */
 public class DataListPanel extends MyPanel {
 	

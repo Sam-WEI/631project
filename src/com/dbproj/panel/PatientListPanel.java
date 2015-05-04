@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import com.dbproj.util.Toolbox;
+
 public class PatientListPanel extends DataListPanel {
 
 	JPanel controlPanel;
@@ -34,7 +36,6 @@ public class PatientListPanel extends DataListPanel {
 		
 		
 		btnView.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
@@ -51,12 +52,26 @@ public class PatientListPanel extends DataListPanel {
 					dialog.add(new JScrollPane(viewer));
 					dialog.setVisible(true);
 					
-					
 				}
-				
-				
 			}
 		});
+		
+		JButton jSchedule = new JButton("Schedule Consultation");
+		addToControlPanel(jSchedule);
+		
+		jSchedule.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				if (row != -1) {
+					JDialog dialog = Toolbox.createDialog(PatientListPanel.this, "Schedule Consulation", 600, 400);
+					dialog.setContentPane(new SchedulePhysicianListPanel((int)tableModel.getValueAt(row, 0)));
+					dialog.setVisible(true);
+				}
+
+			}
+		});
+		
 	}
 	
 }
