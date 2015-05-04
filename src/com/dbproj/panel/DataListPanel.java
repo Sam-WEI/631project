@@ -52,6 +52,10 @@ public class DataListPanel extends MyPanel {
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 		
+		table.setRowSelectionAllowed(true);
+		table.setColumnSelectionAllowed(false);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		add(scrollPane, BorderLayout.CENTER);
 		
 		getDataFromDBAndShowInList();
@@ -142,9 +146,6 @@ public class DataListPanel extends MyPanel {
 		
 		table.setModel(tableModel);
 		
-		table.setRowSelectionAllowed(true);
-		table.setColumnSelectionAllowed(false);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 	
 }

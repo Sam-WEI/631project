@@ -9,6 +9,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.dbproj.panel.DataListPanel;
+import com.dbproj.panel.ShiftListPanel;
+import com.dbproj.panel.ShiftScheduleListPanel;
 import com.dbproj.panel.StaffListPanel;
 
 public class ManageStaffFrame extends MyFrame {
@@ -34,16 +36,24 @@ public class ManageStaffFrame extends MyFrame {
 		panelAList.add(new StaffListPanel("select * from nurse P, employee E where P.emp_id = E.id"));
 		panelAList.add(new StaffListPanel("select * from surgeon P, employee E where P.emp_id = E.id"));
 		
+		
 		tabbedPane.add("Employee List", panelAList.get(0));
 		tabbedPane.add("Physician List", panelAList.get(1));
 		tabbedPane.add("Nurse List", panelAList.get(2));
 		tabbedPane.add("Surgeon List", panelAList.get(3));
 		
+		
+		tabbedPane.add("Shift Schedule List", new ShiftScheduleListPanel());
+		tabbedPane.add("Shift List", new ShiftListPanel());
+		
+		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				 int idx =  tabbedPane.getSelectedIndex();
-				 panelAList.get(idx).getDataFromDBAndShowInList();
+				 if(idx < panelAList.size()){
+					 panelAList.get(idx).getDataFromDBAndShowInList();
+				 }
 				 
 			}
 	    });
