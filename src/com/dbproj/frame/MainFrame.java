@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,10 @@ import com.dbproj.util.DBToolbox;
 
 public class MainFrame extends MyFrame {
 	
+	JLabel name;
+	boolean alive = true;
+	
+	Random random = new Random();
 	
 	public MainFrame() throws HeadlessException {
 		super();
@@ -32,12 +37,14 @@ public class MainFrame extends MyFrame {
 	@Override
 	protected void init(){
 		super.init();
+		random = new Random();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				DBToolbox.closeConnection();
+				alive = false;
 			}
 		});
 		
@@ -48,10 +55,9 @@ public class MainFrame extends MyFrame {
 		add(pLogo, BorderLayout.CENTER);
 		
 		
-		JLabel name = new JLabel("NewarkMedicalAssociates");
+		name = new JLabel("NewarkMedicalAssociates");
 		name.setFont(new Font("Broadway", Font.BOLD, 55));
 		name.setBounds(100, 100, 1024, 200);
-		name.setBackground(Color.RED);
 		pLogo.add(name);
 		
 		
@@ -93,6 +99,7 @@ public class MainFrame extends MyFrame {
 			}
 		});
 		
+		new ChangeColorThread().start();
 	} 
 	
 	
@@ -104,5 +111,21 @@ public class MainFrame extends MyFrame {
 	@Override
 	protected String title() {
 		return "NewarkMedicalAssociates";
+	}
+	
+	private class ChangeColorThread extends Thread{
+		@Override
+		public void run() {
+			while(alive){
+				int color = (int) (0xff0000 * random.nextFloat());
+				name.setForeground(new Color(color));
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
 	}
 }
