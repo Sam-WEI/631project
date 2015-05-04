@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
@@ -31,6 +32,9 @@ public abstract class MyFrame extends JFrame {
 		setVisible(true);
 		
 		contentPane = getContentPane();
+		
+		ImageIcon ii = new ImageIcon("image/icon.png");
+		setIconImage(ii.getImage());
 	}
 	
 	protected int[] getWH(){
