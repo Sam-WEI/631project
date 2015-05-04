@@ -100,7 +100,7 @@ public class SchedulePhysicianListPanel extends DataListPanel {
 	
 	void schedule(int phyID, int pID, Date date){
 		try {
-			PreparedStatement st = DBToolbox.connection.prepareStatement("insert into consultation values(?,?,?,?)");
+			PreparedStatement st = DBToolbox.connection.prepareStatement("insert into consultation (physician_id, patient_id, date, note) values(?,?,?,?)");
 			st.setInt(1, phyID);
 			st.setInt(2, pID);
 			st.setDate(3, date);

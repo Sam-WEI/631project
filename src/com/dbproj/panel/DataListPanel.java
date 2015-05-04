@@ -37,6 +37,8 @@ public class DataListPanel extends MyPanel {
 	
 	protected JPanel controlPanel;
 	
+	boolean customizeColumnName = false;
+	
 	public DataListPanel(String sql){
 		super();
 		this.sql = sql;
@@ -90,6 +92,11 @@ public class DataListPanel extends MyPanel {
 		return bRefresh;
 	}
 	
+	protected void setColumnName(Vector<String> columnName){
+		customizeColumnName = true;
+		this.columnName = columnName;
+	}
+	
 	public void getDataFromDBAndShowInList(){
 		getDataFromDBAndShowInList(sql);
 	}
@@ -102,10 +109,12 @@ public class DataListPanel extends MyPanel {
 			
 			ResultSetMetaData metadata = rs.getMetaData();
 			columnCount = metadata.getColumnCount();
-			columnName = new Vector<>(columnCount);
 			
-			for(int i = 1; i <= columnCount; i++){
-				columnName.add(metadata.getColumnName(i));
+			if(!customizeColumnName){
+				columnName = new Vector<>(columnCount);
+				for(int i = 1; i <= columnCount; i++){
+					columnName.add(metadata.getColumnName(i));
+				}
 			}
 			
 			Vector<Object> columns;

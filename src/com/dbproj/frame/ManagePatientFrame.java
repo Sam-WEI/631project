@@ -19,6 +19,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.dbproj.panel.ConsultationListPanel;
 import com.dbproj.panel.RegisterPatientPanel;
 import com.dbproj.panel.PatientListPanel;
 import com.dbproj.panel.PatientViewerPanel;
@@ -91,7 +92,7 @@ public class ManagePatientFrame extends MyFrame {
 		tabbedPane.add("Patient List", new PatientListPanel("select * from patient"));
 		tabbedPane.add("Search Patient", panelViewerTab);
 		tabbedPane.add("Register New Patient", panelReg);
-		
+		tabbedPane.add("Consultation List", new ConsultationListPanel());
 		
 		
 		btnView.addActionListener(new ActionListener() {
